@@ -29,7 +29,6 @@ public class MenuView extends Composite<VerticalLayout> {
         Button buttonPrimary2 = new Button();
         Button buttonPrimary3 = new Button();
         Button buttonPrimary4 = new Button();
-        Button buttonPrimary5 = new Button();
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
         h2.setText("Bienvenidos");
@@ -49,7 +48,7 @@ public class MenuView extends Composite<VerticalLayout> {
         buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonPrimary.addClickListener(e -> {
             buttonPrimary.getUI().ifPresent(ui ->
-                            ui.navigate("nueva-importacion"));
+                    ui.navigate("nueva-importacion"));
         });
         buttonPrimary2.setText("Nueva Exportacion");
         layoutColumn2.setAlignSelf(FlexComponent.Alignment.CENTER, buttonPrimary2);
@@ -78,20 +77,11 @@ public class MenuView extends Composite<VerticalLayout> {
             buttonPrimary4.getUI().ifPresent(ui ->
                     ui.navigate("lista-exportaciones"));
         });
-        buttonPrimary5.setText("Buscar");
-        buttonPrimary5.setWidth("200px");
-        buttonPrimary5.setHeight("50px");
-        buttonPrimary5.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        buttonPrimary5.addClickListener(e -> {
-            buttonPrimary5.getUI().ifPresent(ui ->
-                    ui.navigate("buscar"));
-        });
         getContent().add(h2);
         getContent().add(layoutColumn2);
         layoutColumn2.add(buttonPrimary);
         layoutColumn2.add(buttonPrimary2);
         layoutColumn2.add(buttonPrimary3);
         layoutColumn2.add(buttonPrimary4);
-        layoutColumn2.add(buttonPrimary5);
     }
 }

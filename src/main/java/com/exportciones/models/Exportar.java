@@ -1,35 +1,28 @@
 package com.exportciones.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Producto {
-
+public class Exportar {
     @Id
     private String id;
     private String nombre;
-
     @Indexed(name="codigo",unique = true)
     private String codigo;
-    private String origen;
+    private String destino;
     private int cantidad;
 
-
-
-    public Producto(String nombre, String codigo, String origen, int cantidad) {
+    public Exportar(String nombre, String codigo, int cantidad, String destino) {
         this.nombre = nombre;
         this.codigo = codigo;
-        this.origen = origen;
         this.cantidad = cantidad;
+        this.destino = destino;
     }
 
-    public Producto() {
+    public Exportar() {
     }
 
     public String getId() {
@@ -56,12 +49,12 @@ public class Producto {
         this.codigo = codigo;
     }
 
-    public String getOrigen() {
-        return origen;
+    public String getDestino() {
+        return destino;
     }
 
-    public void setOrigen(String destino) {
-        this.origen = origen;
+    public void setDestino(String destino) {
+        this.destino = destino;
     }
 
     public int getCantidad() {

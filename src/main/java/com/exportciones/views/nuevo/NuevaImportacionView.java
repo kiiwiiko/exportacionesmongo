@@ -1,9 +1,7 @@
-package com.exportciones.views.nuevaimportacion;
+package com.exportciones.views.nuevo;
 
-import com.exportciones.models.ProductoExportado;
-import com.exportciones.models.ProductoImportado;
-import com.exportciones.services.ProductoExportadoService;
-import com.exportciones.services.ProductoImportadoService;
+import com.exportciones.models.Producto;
+import com.exportciones.services.ProductoService;
 import com.exportciones.views.MainLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
@@ -19,8 +17,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
-import java.util.ArrayList;
-import java.util.List;
 
 @PageTitle("Nueva Importacion")
 @Route(value = "nueva-importacion", layout = MainLayout.class)
@@ -33,16 +29,18 @@ public class NuevaImportacionView extends Composite<VerticalLayout> implements H
     TextField tfCantidad;
     Button btGuardar;
     Button btMenu;
+    String selectedValue;
+    String valorTexto;
 
     String codigo;
 
-    private ProductoImportadoService productoImportadoService;
-    public NuevaImportacionView(ProductoImportadoService productoImportadoService)  {
+    private ProductoService productoService;
+    public NuevaImportacionView(ProductoService productoService)  {
         HorizontalLayout layoutRow = new HorizontalLayout();
         tfNombre = new TextField();
         tfCodigo = new TextField();
         HorizontalLayout layoutRow2 = new HorizontalLayout();
-        cbOrigen = new ComboBox();
+        cbOrigen = new ComboBox<>();
         tfCantidad = new TextField();
         Paragraph textMedium = new Paragraph();
         HorizontalLayout layoutRow3 = new HorizontalLayout();
@@ -73,7 +71,10 @@ public class NuevaImportacionView extends Composite<VerticalLayout> implements H
         layoutRow2.setJustifyContentMode(JustifyContentMode.CENTER);
         cbOrigen.setLabel("Origen");
         cbOrigen.setWidth("300px");
-        setComboBoxSampleData(cbOrigen);
+        cbOrigen.setItems("Opción 1", "Opción 2", "Opción 3");
+        cbOrigen.addValueChangeListener(event -> {
+            selectedValue = event.getValue().toString();
+        });
         tfCantidad.setLabel("Cantidad");
         tfCantidad.setWidth("300px");
         textMedium.setText("");
@@ -83,10 +84,28 @@ public class NuevaImportacionView extends Composite<VerticalLayout> implements H
         btGuardar.setWidth("200px");
         btGuardar.setHeight("50px");
         btGuardar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
         btGuardar.addClickListener(e -> {
-            btGuardar.getUI().ifPresent(ui ->
-                    ui.navigate("lista-importaciones"));
-        });
+            valorTexto = tfCantidad.getValue();
+                    if(codigo!=null){
+
+                        String nombre = tfNombre.getValue();
+                        String destino = selectedValue.toString();
+                        int cantidad = Integer.parseInt(valorTexto);
+                        Producto producto = new Producto(nombre,null, destino, cantidad);
+                        productoService.editarProducto(codigo,producto);
+                    }else{
+                        String codigo1 = tfCodigo.getValue();
+                        String nombre = tfNombre.getValue();
+                        String destino = selectedValue.toString();
+                        int cantidad = Integer.parseInt(valorTexto);
+                        Producto producto = new Producto(nombre,codigo1, destino, cantidad);
+                        productoService.agregarProducto(producto);
+                    }
+                    btGuardar.getUI().ifPresent(ui ->
+                            ui.navigate("lista-productos"));
+                }
+        );
         btMenu.setText("Menu");
         btMenu.setWidth("200px");
         btMenu.setHeight("50px");
@@ -125,7 +144,7 @@ public class NuevaImportacionView extends Composite<VerticalLayout> implements H
         this.codigo = codigo;
         if(codigo != null){
             tfCodigo.setEnabled(false);
-            ProductoImportado productoBuscado = productoImportadoService.obtenerPorCodigo(codigo);
+            Producto productoBuscado =  productoService.obtenerPorCodigo(codigo);
             tfNombre.setValue(productoBuscado.getNombre());
             tfCodigo.setValue(productoBuscado.getCodigo());
             cbOrigen.setValue(productoBuscado.getOrigen());
@@ -134,15 +153,4 @@ public class NuevaImportacionView extends Composite<VerticalLayout> implements H
         }
     }
 
-    record SampleItem(String value, String label, Boolean disabled) {
-    }
-
-    private void setComboBoxSampleData(ComboBox comboBox) {
-        List<SampleItem> sampleItems = new ArrayList<>();
-        sampleItems.add(new SampleItem("esmeraldas", "Esmeraldas", null));
-        sampleItems.add(new SampleItem("manabi", "Manabi", null));
-        sampleItems.add(new SampleItem("cayambe", "Cayambe", null));
-        comboBox.setItems(sampleItems);
-        comboBox.setItemLabelGenerator(item -> ((SampleItem) item).label());
-    }
 }

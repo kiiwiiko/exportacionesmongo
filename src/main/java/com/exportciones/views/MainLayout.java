@@ -1,8 +1,9 @@
 package com.exportciones.views;
 
 import com.exportciones.views.buscar.BuscarView;
+import com.exportciones.views.directorio.DirectorioView;
 import com.exportciones.views.listaexportaciones.ListaExportacionesView;
-import com.exportciones.views.listaimportacion.ListaImportacionView;
+import com.exportciones.views.listaimportacion.ListaImportacionesView;
 import com.exportciones.views.menu.MenuView;
 import com.exportciones.views.nuevaexportacion.NuevaExportacionView;
 import com.exportciones.views.nuevaimportacion.NuevaImportacionView;
@@ -43,7 +44,7 @@ public class MainLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("My App");
+        H1 appName = new H1("Exportacion");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
@@ -60,12 +61,12 @@ public class MainLayout extends AppLayout {
                 LineAwesomeIcon.PENCIL_RULER_SOLID.create()));
         nav.addItem(new SideNavItem("Nueva Exportacion", NuevaExportacionView.class,
                 LineAwesomeIcon.PENCIL_RULER_SOLID.create()));
-        nav.addItem(new SideNavItem("Lista Importacion", ListaImportacionView.class,
+        nav.addItem(new SideNavItem("Lista Importacion", ListaImportacionesView.class,
                 LineAwesomeIcon.ADDRESS_BOOK_SOLID.create()));
         nav.addItem(new SideNavItem("Lista Exportaciones", ListaExportacionesView.class,
                 LineAwesomeIcon.ADDRESS_BOOK_SOLID.create()));
         nav.addItem(new SideNavItem("Buscar", BuscarView.class, LineAwesomeIcon.MAP_PIN_SOLID.create()));
-
+        nav.addItem(new SideNavItem("Directorio", DirectorioView.class, LineAwesomeIcon.BOOK_SOLID.create()));
         return nav;
     }
 

@@ -47,25 +47,45 @@ public class MenuView extends Composite<VerticalLayout> {
         buttonPrimary.setWidth("200px");
         buttonPrimary.setHeight("50px");
         buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        buttonPrimary.addClickListener(e -> {
+            buttonPrimary.getUI().ifPresent(ui ->
+                            ui.navigate("nueva-importacion"));
+        });
         buttonPrimary2.setText("Nueva Exportacion");
         layoutColumn2.setAlignSelf(FlexComponent.Alignment.CENTER, buttonPrimary2);
         buttonPrimary2.setWidth("200px");
         buttonPrimary2.setHeight("50px");
         buttonPrimary2.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        buttonPrimary2.addClickListener(e -> {
+            buttonPrimary2.getUI().ifPresent(ui ->
+                    ui.navigate("nueva-exportacion"));
+        });
         buttonPrimary3.setText("Importaciones");
         layoutColumn2.setAlignSelf(FlexComponent.Alignment.CENTER, buttonPrimary3);
         buttonPrimary3.setWidth("200px");
         buttonPrimary3.setHeight("50px");
         buttonPrimary3.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        buttonPrimary3.addClickListener(e -> {
+            buttonPrimary3.getUI().ifPresent(ui ->
+                    ui.navigate("lista-importaciones"));
+        });
         buttonPrimary4.setText("Exportaciones");
         layoutColumn2.setAlignSelf(FlexComponent.Alignment.CENTER, buttonPrimary4);
         buttonPrimary4.setWidth("200px");
         buttonPrimary4.setHeight("50px");
         buttonPrimary4.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        buttonPrimary4.addClickListener(e -> {
+            buttonPrimary4.getUI().ifPresent(ui ->
+                    ui.navigate("lista-exportaciones"));
+        });
         buttonPrimary5.setText("Buscar");
         buttonPrimary5.setWidth("200px");
         buttonPrimary5.setHeight("50px");
         buttonPrimary5.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        buttonPrimary5.addClickListener(e -> {
+            buttonPrimary5.getUI().ifPresent(ui ->
+                    ui.navigate("buscar"));
+        });
         getContent().add(h2);
         getContent().add(layoutColumn2);
         layoutColumn2.add(buttonPrimary);

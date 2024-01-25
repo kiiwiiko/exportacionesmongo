@@ -1,7 +1,6 @@
 package com.exportciones.views.listas;
-
-import com.exportciones.models.Producto;
-import com.exportciones.services.ProductoService;
+import com.exportciones.models.ProductoImportado;
+import com.exportciones.services.ProductoImportadoService;
 import com.exportciones.views.MainLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.dependency.Uses;
@@ -21,23 +20,23 @@ import java.util.List;
 public class ListaProductosView extends Composite<VerticalLayout> {
 
 
-    private ProductoService productoService;
+    private ProductoImportadoService productoImportadoService;
 
-    public ListaProductosView(ProductoService productoService) {
+    public ListaProductosView(ProductoImportadoService productoImportadoService) {
 
-        this.productoService=productoService;
+        this.productoImportadoService=productoImportadoService;
 
         getContent().setWidth("100%");
         getContent().getStyle().set("flex-grow", "1");
 
-        Grid<Producto> grid = new Grid<>(Producto.class, false);
-        grid.addColumn(Producto::getNombre).setHeader("Nombre").setAutoWidth(true);
-        grid.addColumn(Producto::getCodigo).setHeader("Codigo").setAutoWidth(true);
-        grid.addColumn(Producto::getOrigen).setHeader("Origen").setAutoWidth(true);
-        grid.addColumn(Producto::getCantidad).setHeader("Cantidad").setAutoWidth(true);
+        Grid<ProductoImportado> grid = new Grid<>(ProductoImportado.class, false);
+        grid.addColumn(ProductoImportado::getNombre).setHeader("Nombre").setAutoWidth(true);
+        grid.addColumn(ProductoImportado::getCodigo).setHeader("Codigo").setAutoWidth(true);
+        grid.addColumn(ProductoImportado::getOrigen).setHeader("Origen").setAutoWidth(true);
+        grid.addColumn(ProductoImportado::getCantidad).setHeader("Cantidad").setAutoWidth(true);
 
-        List<Producto> productos = productoService.listaProductos();
-        grid.setItems(productos);
+        List<ProductoImportado> productosImportado = productoImportadoService.listaProductos();
+        grid.setItems(productosImportado);
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
 
 

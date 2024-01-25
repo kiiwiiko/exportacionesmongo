@@ -2,9 +2,11 @@ package com.exportciones.views;
 
 
 
+import com.exportciones.views.listas.ListaExportadosView;
 import com.exportciones.views.listas.ListaProductosView;
 import com.exportciones.views.menu.MenuView;
 
+import com.exportciones.views.nuevo.NuevaExportacionView;
 import com.exportciones.views.nuevo.NuevaImportacionView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -59,6 +61,10 @@ public class MainLayout extends AppLayout {
         nav.addItem(new SideNavItem("Nueva Importacion", NuevaImportacionView.class,
                 LineAwesomeIcon.PENCIL_RULER_SOLID.create()));
         nav.addItem(new SideNavItem("Lista Importacion", ListaProductosView.class,
+                LineAwesomeIcon.ADDRESS_BOOK_SOLID.create()));
+        nav.addItem(new SideNavItem("Nueva Exportacion", NuevaExportacionView.class,
+                LineAwesomeIcon.PENCIL_RULER_SOLID.create()));
+        nav.addItem(new SideNavItem("Lista Exportacion", ListaExportadosView.class,
                 LineAwesomeIcon.ADDRESS_BOOK_SOLID.create()));
         return nav;
     }

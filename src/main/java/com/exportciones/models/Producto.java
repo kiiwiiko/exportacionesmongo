@@ -2,30 +2,19 @@ package com.exportciones.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document
 public class Producto {
-
     @Id
     private String id;
     private String nombre;
 
     @Indexed(name="codigo",unique = true)
     private String codigo;
-    private String origen;
     private int cantidad;
 
-
-
-    public Producto(String nombre, String codigo, String origen, int cantidad) {
+    public Producto(String nombre, String codigo, int cantidad) {
         this.nombre = nombre;
         this.codigo = codigo;
-        this.origen = origen;
         this.cantidad = cantidad;
     }
 
@@ -54,14 +43,6 @@ public class Producto {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }
-
-    public String getOrigen() {
-        return origen;
-    }
-
-    public void setOrigen(String destino) {
-        this.origen = origen;
     }
 
     public int getCantidad() {

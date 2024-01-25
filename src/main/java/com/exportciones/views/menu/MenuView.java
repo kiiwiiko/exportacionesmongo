@@ -66,7 +66,7 @@ public class MenuView extends Composite<VerticalLayout> {
         buttonPrimary3.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonPrimary3.addClickListener(e -> {
             buttonPrimary3.getUI().ifPresent(ui ->
-                    ui.navigate("lista-importaciones"));
+                    ui.navigate("lista-productos"));
         });
         buttonPrimary4.setText("Exportaciones");
         layoutColumn2.setAlignSelf(FlexComponent.Alignment.CENTER, buttonPrimary4);
@@ -75,7 +75,7 @@ public class MenuView extends Composite<VerticalLayout> {
         buttonPrimary4.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonPrimary4.addClickListener(e -> {
             buttonPrimary4.getUI().ifPresent(ui ->
-                    ui.navigate("lista-exportaciones"));
+                    ui.navigate("lista-exportados"));
         });
         getContent().add(h2);
         getContent().add(layoutColumn2);

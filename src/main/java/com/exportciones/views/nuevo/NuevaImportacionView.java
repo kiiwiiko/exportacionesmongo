@@ -1,7 +1,8 @@
 package com.exportciones.views.nuevo;
 
 import com.exportciones.models.Producto;
-import com.exportciones.services.ProductoService;
+import com.exportciones.models.ProductoImportado;
+import com.exportciones.services.ProductoImportadoService;
 import com.exportciones.views.MainLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
@@ -34,8 +35,8 @@ public class NuevaImportacionView extends Composite<VerticalLayout> implements H
 
     String codigo;
 
-    private ProductoService productoService;
-    public NuevaImportacionView(ProductoService productoService)  {
+    private ProductoImportadoService productoImportadoService;
+    public NuevaImportacionView(ProductoImportadoService productoImportadoService)  {
         HorizontalLayout layoutRow = new HorizontalLayout();
         tfNombre = new TextField();
         tfCodigo = new TextField();
@@ -71,7 +72,7 @@ public class NuevaImportacionView extends Composite<VerticalLayout> implements H
         layoutRow2.setJustifyContentMode(JustifyContentMode.CENTER);
         cbOrigen.setLabel("Origen");
         cbOrigen.setWidth("300px");
-        cbOrigen.setItems("Opción 1", "Opción 2", "Opción 3");
+        cbOrigen.setItems("Esmeraldas", "Manabi", "Cayambe");
         cbOrigen.addValueChangeListener(event -> {
             selectedValue = event.getValue().toString();
         });
@@ -92,15 +93,15 @@ public class NuevaImportacionView extends Composite<VerticalLayout> implements H
                         String nombre = tfNombre.getValue();
                         String destino = selectedValue.toString();
                         int cantidad = Integer.parseInt(valorTexto);
-                        Producto producto = new Producto(nombre,null, destino, cantidad);
-                        productoService.editarProducto(codigo,producto);
+                        ProductoImportado productoImportado = new ProductoImportado(nombre,null, destino, cantidad);
+                        productoImportadoService.editarProducto(codigo,productoImportado);
                     }else{
                         String codigo1 = tfCodigo.getValue();
                         String nombre = tfNombre.getValue();
                         String destino = selectedValue.toString();
                         int cantidad = Integer.parseInt(valorTexto);
-                        Producto producto = new Producto(nombre,codigo1, destino, cantidad);
-                        productoService.agregarProducto(producto);
+                        ProductoImportado productoImportado = new ProductoImportado(nombre,codigo1, destino, cantidad);
+                        productoImportadoService.agregarProducto(productoImportado);
                     }
                     btGuardar.getUI().ifPresent(ui ->
                             ui.navigate("lista-productos"));
@@ -144,10 +145,9 @@ public class NuevaImportacionView extends Composite<VerticalLayout> implements H
         this.codigo = codigo;
         if(codigo != null){
             tfCodigo.setEnabled(false);
-            Producto productoBuscado =  productoService.obtenerPorCodigo(codigo);
+            ProductoImportado productoBuscado =  productoImportadoService.obtenerPorCodigo(codigo);
             tfNombre.setValue(productoBuscado.getNombre());
             tfCodigo.setValue(productoBuscado.getCodigo());
-            cbOrigen.setValue(productoBuscado.getOrigen());
         }else {
             tfCodigo.setEnabled(true);
         }

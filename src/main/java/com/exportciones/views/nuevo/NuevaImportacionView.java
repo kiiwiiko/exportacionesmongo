@@ -94,7 +94,7 @@ public class NuevaImportacionView extends Composite<VerticalLayout> implements H
                         String destino = selectedValue.toString();
                         int cantidad = Integer.parseInt(valorTexto);
                         ProductoImportado productoImportado = new ProductoImportado(nombre,null, destino, cantidad);
-                        productoImportadoService.editarProducto(codigo,productoImportado);
+                        productoImportadoService.editarProductoImportado(codigo,productoImportado);
                     }else{
                         String codigo1 = tfCodigo.getValue();
                         String nombre = tfNombre.getValue();

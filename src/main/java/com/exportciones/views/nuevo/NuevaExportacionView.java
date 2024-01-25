@@ -157,13 +157,13 @@ public class NuevaExportacionView extends Composite<VerticalLayout> implements H
     private double obtenerPrecioDestino(String destino) {
         switch (destino) {
             case "EEUU":
-                return 10.0;
+                return 0.05;
             case "Rusia":
-                return 15.0;
+                return 0.10;
             case "China":
-                return 12.0;
+                return 0.15;
             default:
-                return 0.0; // Precio predeterminado si no se encuentra el destino
+                return 0.0;
         }
     }
 

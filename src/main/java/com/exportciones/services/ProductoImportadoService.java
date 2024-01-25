@@ -36,44 +36,77 @@ public class ProductoImportadoService {
         return productoImportado;
     }
 
+
     public void agregarProducto(ProductoImportado productoImportado) {
         try {
-            String codigoProducto = productoImportado.getCodigo();
+            // Verificar si la información necesaria está presente
+            if (esInformacionValida(productoImportado)) {
+                String codigoProducto = productoImportado.getCodigo();
+                String nombreProducto = productoImportado.getNombre();
 
-            // Verificar si ya existe un producto importado con el mismo código
-            if (!existeProductoImportadoConCodigo(codigoProducto)) {
-                // Guardar el nuevo producto importado
-                productoImportadoRepository.save(productoImportado);
-                System.out.println("Producto Importado agregado correctamente.");
+                // Buscar el producto existente por nombre y código
+                ProductoImportado productoExistente = productoImportadoRepository.findByNombreAndCodigo(nombreProducto, codigoProducto);
+
+                if (productoExistente != null) {
+                    // Sumar la cantidad al producto existente
+                    productoExistente.setCantidad(productoExistente.getCantidad() + productoImportado.getCantidad());
+                    productoImportadoRepository.save(productoExistente);
+                    System.out.println("Cantidad de Producto Importado actualizada correctamente.");
+                } else {
+                    // Verificar si el nombre ya existe en la base de datos
+                    ProductoImportado productoPorNombre = productoImportadoRepository.findByNombre(nombreProducto);
+                    if (productoPorNombre != null) {
+                        System.out.println("ERROR: Ya existe un Producto Importado con ese nombre y código. No se pudo agregar el nuevo Producto Importado.");
+                    } else {
+                        // Guardar el nuevo producto importado
+                        productoImportadoRepository.save(productoImportado);
+                        System.out.println("Producto Importado agregado correctamente.");
+                    }
+                }
             } else {
-                System.out.println("ERROR: Ya existe un Producto Importado con ese código. No se pudo agregar el nuevo Producto Importado.");
+                System.out.println("ERROR: Información incompleta. Por favor, ingrese todos los campos obligatorios.");
             }
         } catch (Exception e) {
             System.out.println("ERROR: No se pudo guardar el producto.");
         }
     }
 
+    private boolean esInformacionValida(ProductoImportado productoImportado) {
+        // Verificar que la información necesaria esté presente
+        return productoImportado != null
+                && productoImportado.getNombre() != null
+                && !productoImportado.getNombre().isEmpty()
+                && productoImportado.getCodigo() != null
+                && !productoImportado.getCodigo().isEmpty()
+                && productoImportado.getCantidad() > 0;  // O cualquier validación adicional que necesites
+    }
+    private boolean esNombreUnico(String nombre) {
+        // Verificar si el nombre ya existe en la base de datos
+        return productoImportadoRepository.findByNombre(nombre) == null;
+    }
+
+
     private boolean existeProductoImportadoConCodigo(String codigo) {
         return productoImportadoRepository.findByCodigo(codigo) != null;
     }
 
-    public void borrarProducto(String codigo) {
-        try {
-            ProductoImportado productoImportado =
-                    productoImportadoRepository.findByCodigo(codigo);
-            productoImportadoRepository.delete(productoImportado);
-        }catch (Exception e) {
-            System.out.println("ERROR: No se pudo encontrar el producto.");
-        }
-    }
-
-    public void editarProducto(String codigo, ProductoImportado productoImportado) {
+    public void editarProductoImportado(String codigo, ProductoImportado productoImportado) {
         try {
             ProductoImportado productoEditar = productoImportadoRepository.findByCodigo(codigo);
             productoEditar.setNombre(productoImportado.getNombre());
+            productoEditar.setCantidad(productoImportado.getCantidad());
             productoImportadoRepository.save(productoEditar);
-        }catch (Exception e) {
-            System.out.println("ERROR: No se puede encontrar el producto.");
+        } catch (Exception e) {
+            System.out.println("ERROR: No se puede encontrar o editar el producto importado.");
+        }
+    }
+
+    public void borrarProductoImportado(ProductoImportado productoImportado) {
+        try {
+            productoImportadoRepository.delete(productoImportado);
+            System.out.println("Producto Importado eliminado correctamente.");
+        } catch (Exception e) {
+            System.out.println("ERROR: No se pudo encontrar o borrar el producto importado.");
         }
     }
 }

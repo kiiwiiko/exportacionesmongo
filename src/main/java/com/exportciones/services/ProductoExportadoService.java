@@ -88,6 +88,16 @@ public class ProductoExportadoService {
             System.out.println("ERROR: No se pudo restar la cantidad de productos importados.");
         }
     }
+
+    public void eliminarExpo(ProductoExportado productoExportado) {
+        try {
+            productoExportadoRepository.delete(productoExportado);
+            System.out.println("Producto Exportado eliminado correctamente.");
+        } catch (Exception e) {
+            System.out.println("ERROR: No se pudo eliminar el Producto Exportado.");
+        }
+    }
+
     private boolean existeProductoImportadoConCodigo(String codigo) {
         return productoImportadoRepository.findByCodigo(codigo) != null;
     }

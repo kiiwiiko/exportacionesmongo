@@ -72,7 +72,7 @@ public class NuevaExportacionView extends Composite<VerticalLayout> implements H
         layoutRow2.setHeight("min-content");
         layoutRow2.setAlignItems(Alignment.CENTER);
         layoutRow2.setJustifyContentMode(JustifyContentMode.CENTER);
-        cbOrigen.setLabel("Origen");
+        cbOrigen.setLabel("Destino");
         cbOrigen.setWidth("300px");
         cbOrigen.setItems("EEUU", "Rusia", "China");
         cbOrigen.addValueChangeListener(event -> {

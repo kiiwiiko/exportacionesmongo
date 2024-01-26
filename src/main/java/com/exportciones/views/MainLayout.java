@@ -4,7 +4,7 @@ package com.exportciones.views;
 
 import com.exportciones.views.listas.ListaExportadosView;
 import com.exportciones.views.listas.ListaProductosView;
-import com.exportciones.views.menu.BuscarView;
+import com.exportciones.views.buscar.BuscarView;
 import com.exportciones.views.menu.MenuView;
 
 import com.exportciones.views.nuevo.NuevaExportacionView;

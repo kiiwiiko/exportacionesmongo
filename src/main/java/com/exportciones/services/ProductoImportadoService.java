@@ -3,6 +3,7 @@ package com.exportciones.services;
 import com.exportciones.models.Producto;
 import com.exportciones.models.ProductoExportado;
 import com.exportciones.models.ProductoImportado;
+import com.vaadin.flow.component.notification.Notification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -51,16 +52,24 @@ public class ProductoImportadoService {
                     // Sumar la cantidad al producto existente
                     productoExistente.setCantidad(productoExistente.getCantidad() + productoImportado.getCantidad());
                     productoImportadoRepository.save(productoExistente);
+                    Notification.show("Producto agregado con éxito.");
                     System.out.println("Cantidad de Producto Importado actualizada correctamente.");
                 } else {
                     // Verificar si el nombre ya existe en la base de datos
                     ProductoImportado productoPorNombre = productoImportadoRepository.findByNombre(nombreProducto);
+                    ProductoImportado productoPorCodigo = productoImportadoRepository.findByCodigo(codigoProducto);
                     if (productoPorNombre != null) {
+                        Notification.show("ERROR: Ya existe un Producto Importado con ese nombre");
+                        System.out.println("ERROR: Ya existe un Producto Importado con ese nombre y código. No se pudo agregar el nuevo Producto Importado.");
+                    } else if (productoPorCodigo != null) {
+                        Notification.show("ERROR: Ya existe un Producto Importado con ese codigo");
                         System.out.println("ERROR: Ya existe un Producto Importado con ese nombre y código. No se pudo agregar el nuevo Producto Importado.");
                     } else {
+
                         // Guardar el nuevo producto importado
                         productoImportadoRepository.save(productoImportado);
-                        System.out.println("Producto Importado agregado correctamente.");
+                        Notification.show("Ciudadano agregado con éxito.");
+                        System.out.println("Nuevo Importado agregado correctamente.");
                     }
                 }
             } else {

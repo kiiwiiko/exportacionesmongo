@@ -13,8 +13,6 @@ public class ProductoImportado extends Producto {
     private String origen;
 
 
-
-
     public ProductoImportado(String nombre, String codigo, String origen, int cantidad) {
         super(nombre, codigo, cantidad);
 
